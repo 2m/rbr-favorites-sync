@@ -66,7 +66,8 @@ object Notion:
 
 case class Stage(title: String, id: Int, tags: List[String])
 
-def stages(token: String, database: String)(using Config, ExecutionContext) =
+def stages(token: String, database: String)(using ExecutionContext) =
+  given Config(token)
   val http = ScribeLoggingBackend(HttpClientFutureBackend())
 
   (for {
@@ -85,15 +86,7 @@ def stages(token: String, database: String)(using Config, ExecutionContext) =
     stages
   }).value
 
-def tags(token: String, database: String)(using ExecutionContext) =
-  given Config(token)
-
-  EitherT(stages(token, database)).map { stages =>
-    stages.flatMap(_.tags).toSet.toList.sorted
-  }.value
-
 @main def printStages(token: String, database: String) =
-  given Config(token)
   given ExecutionContext = ExecutionContext.global
 
   println(Await.result(stages(token, database), 30.seconds))

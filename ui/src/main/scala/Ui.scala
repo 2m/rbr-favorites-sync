@@ -125,17 +125,31 @@ object ScalaFXHelloWorld extends JFXApp3 {
       s"Parsing favorites from $favorites"
     }
     logItems.prepend {
-      val stageCount = favoritesStorage.get("FavoriteStages").size
+      val stageCount = Option(favoritesStorage.get("FavoriteStages")).map(_.size).getOrElse(0)
       s"Found $stageCount favorite stages"
     }
+
+    var loadedStages = List.empty[Stage]
 
     val fetchTags = new Button("Fetch tags") {
       onAction = _ => {
         logItems.prepend("Loading Notion page...")
-        tags(token.text.get, notion.text.get).map {
-          case Right(tags) =>
+        stages(token.text.get, notion.text.get).map {
+          case Right(stages) =>
+            loadedStages = stages
+
+            val tags = stages.flatMap(_.tags).toSet.toList.sorted
+
             tagItems.clear()
             tags.foreach(tagItems.add)
+
+            Platform.runLater {
+              logItems.prepend {
+                val stageCount = stages.size
+                val tagCount = tags.size
+                s"Loaded $stageCount stages with $tagCount unique tags"
+              }
+            }
           case Left(error) =>
             Platform.runLater {
               logItems.prepend(s"ERROR: ${error.getMessage}")

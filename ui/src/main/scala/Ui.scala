@@ -30,6 +30,7 @@ import scalafx.scene.control.Button
 import scalafx.scene.control.Label
 import scalafx.scene.control.ListView
 import scalafx.scene.control.MultipleSelectionModel
+import scalafx.scene.control.PasswordField
 import scalafx.scene.control.SelectionMode
 import scalafx.scene.control.SelectionModel
 import scalafx.scene.control.TextField
@@ -85,7 +86,7 @@ object ScalaFXHelloWorld extends JFXApp3 {
     }
     val favoritesStorage = new Wini(favoritesFile)
 
-    val token = new TextField { promptText = "token" }
+    val token = new PasswordField { promptText = "token" }
     token.text.onChange { (_, _, newValue) =>
       newValue match {
         case s"secret_$rest" if rest.length > 0 =>

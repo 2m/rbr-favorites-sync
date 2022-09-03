@@ -66,13 +66,15 @@ object Notion:
 
 case class Stage(title: String, id: Int, tags: List[String])
 
-def stages(token: String, database: String)(using Config, ExecutionContext, Http) =
+def stages(token: String, database: String)(using Config, ExecutionContext) =
+  val http = ScribeLoggingBackend(HttpClientFutureBackend())
+
   (for {
-    db <- EitherT(Notion.Database.request(database).send().map(_.body))
+    db <- EitherT(Notion.Database.request(database).send(http).map(_.body))
     stages <- db.results.map { result =>
-      val idResult = EitherT(Notion.Page.property[Notion.Page.Number]("ID", result.id).send().map(_.body))
-      val nameResult = EitherT(Notion.Page.property[Notion.Page.Title]("Name", result.id).send().map(_.body))
-      val tagsResult = EitherT(Notion.Page.property[Notion.Page.MultiSelect]("Tags", result.id).send().map(_.body))
+      val idResult = EitherT(Notion.Page.property[Notion.Page.Number]("ID", result.id).send(http).map(_.body))
+      val nameResult = EitherT(Notion.Page.property[Notion.Page.Title]("Name", result.id).send(http).map(_.body))
+      val tagsResult = EitherT(Notion.Page.property[Notion.Page.MultiSelect]("Tags", result.id).send(http).map(_.body))
       for {
         id <- idResult
         name <- nameResult
@@ -85,7 +87,6 @@ def stages(token: String, database: String)(using Config, ExecutionContext, Http
 
 def tags(token: String, database: String)(using ExecutionContext) =
   given Config(token)
-  given Http = ScribeLoggingBackend(HttpClientFutureBackend())
 
   EitherT(stages(token, database)).map { stages =>
     stages.flatMap(_.tags).toSet.toList.sorted
@@ -94,6 +95,5 @@ def tags(token: String, database: String)(using ExecutionContext) =
 @main def printStages(token: String, database: String) =
   given Config(token)
   given ExecutionContext = ExecutionContext.global
-  given Http = ScribeLoggingBackend(HttpClientFutureBackend())
 
   println(Await.result(stages(token, database), 30.seconds))

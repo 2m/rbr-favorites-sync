@@ -1,6 +1,9 @@
 inThisBuild(
   List(
-    scalaVersion := "3.1.2"
+    scalaVersion := "3.1.2",
+    organizationName := "github.com/2m/rbr-favorites-sync",
+    startYear := Some(2022),
+    licenses += ("Apache-2.0", new URL("https://www.apache.org/licenses/LICENSE-2.0.txt"))
   )
 )
 
@@ -14,6 +17,7 @@ lazy val core = project
       "org.typelevel"                 %% "cats-core"      % "2.8.0"
     )
   )
+  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val ui = project
   .dependsOn(core)
@@ -25,4 +29,4 @@ lazy val ui = project
     nativeImageJvm := "graalvm-java17",
     fork := true // to avoid javafx double init problems
   )
-  .enablePlugins(NativeImagePlugin)
+  .enablePlugins(AutomateHeaderPlugin, NativeImagePlugin)

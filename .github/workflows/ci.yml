@@ -1,0 +1,26 @@
+name: ci
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: 17
+    - name: yaml-lint
+      uses: ibiqlik/action-yamllint@v3
+    - run: sbtn scalafmtCheckAll
+    - run: sbtn scalafmtSbtCheck
+    - run: sbtn headerCheckAll
+    - run: sbtn test

@@ -9,7 +9,7 @@ on:
     types: [published]
 
 jobs:
-  unix:
+  native-image:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -27,21 +27,15 @@ jobs:
           local_path: ui/target/native-image/ui.exe
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     - name: Setup JDK
       uses: actions/setup-java@v3
       with:
         distribution: temurin
         java-version: 17
-    - run: git fetch --tags || true
-    - shell: bash
-      if: ${{ matrix.os != 'windows-latest' }}
-      run: sbt ui/nativeImage
-    - shell: cmd
-      if: ${{ matrix.os == 'windows-latest' }}
-      run: >-
-        "C:\Program Files\Microsoft Visual
-        Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" && sbt
-        ui/nativeImage
+    - uses: ilammy/msvc-dev-cmd@v1
+    - run: sbt clean ui/nativeImage
     - uses: actions/upload-artifact@v2
       with:
         path: ${{ matrix.local_path }}

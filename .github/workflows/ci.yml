@@ -20,7 +20,7 @@ jobs:
         java-version: 17
     - name: yaml-lint
       uses: ibiqlik/action-yamllint@v3
-    - run: sbtn scalafmtCheckAll
-    - run: sbtn scalafmtSbtCheck
-    - run: sbtn headerCheckAll
-    - run: sbtn test
+    - run: sbt --client scalafmtCheckAll
+    - run: sbt --client scalafmtSbtCheck
+    - run: sbt --client headerCheckAll
+    - run: sbt --client test

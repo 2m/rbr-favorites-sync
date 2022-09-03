@@ -17,10 +17,11 @@
 package lt.dvim.rbr
 
 import java.io.File
-import javafx.collections.FXCollections
 import org.ini4j.Wini
 import scala.concurrent.ExecutionContext
 import scalafx.application.JFXApp3
+import scalafx.application.Platform
+import scalafx.collections.ObservableBuffer
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control.Button
@@ -32,8 +33,11 @@ import scalafx.scene.control.SelectionModel
 import scalafx.scene.control.TextField
 import scalafx.scene.control.TextInputDialog
 import scalafx.scene.effect.DropShadow
+import scalafx.scene.layout.ColumnConstraints
 import scalafx.scene.layout.GridPane
 import scalafx.scene.layout.HBox
+import scalafx.scene.layout.Priority
+import scalafx.scene.layout.VBox
 import scalafx.scene.paint._
 import scalafx.scene.paint.Color._
 import scalafx.scene.text.Text
@@ -89,28 +93,60 @@ object ScalaFXHelloWorld extends JFXApp3 {
     }
     notion.text = Option(localStorage.get("config", "notion")).getOrElse("")
 
-    val tagItems = FXCollections.observableArrayList[String]()
-    val tagsList = new ListView[String] {}
+    val tagItems = ObservableBuffer.empty[String]
+    val tagsList = new ListView[String] {
+      items = tagItems
+    }
     tagsList.getSelectionModel.setSelectionMode(SelectionMode.Multiple)
-    tagsList.setItems(tagItems)
 
-    val logItems = FXCollections.observableArrayList[String]()
-    val logList = new ListView[String] {}
-    logList.setItems(logItems)
+    val logItems = ObservableBuffer.from(List("Welcome to RBR Favorites Sync"))
+    val logList = new ListView[String] {
+      items = logItems
+      prefHeight = 150
+    }
 
     val fetchTags = new Button("Fetch tags") {
       onAction = _ => {
-        logItems.add("Loading Notion page...")
+        logItems.prepend("Loading Notion page...")
         tags(token.text.get, notion.text.get).map {
           case Right(tags) =>
             tagItems.clear()
             tags.foreach(tagItems.add)
           case Left(error) =>
-            logItems.add(s"ERROR: ${error.getMessage}")
+            Platform.runLater {
+              logItems.prepend(s"ERROR: ${error.getMessage}")
+            }
         }
       }
     }
     val write = new Button("Write")
+
+    val neverGrow = new ColumnConstraints()
+    neverGrow.setHgrow(Priority.Never)
+
+    val alwaysGrow = new ColumnConstraints()
+    alwaysGrow.setHgrow(Priority.Always)
+
+    val grid = new GridPane() {
+      gridLinesVisible = false
+      hgap = 10
+      vgap = 10
+      padding = Insets(20, 10, 10, 10)
+      columnConstraints.addAll(neverGrow, neverGrow, alwaysGrow)
+
+      add(new Label("Token:"), columnIndex = 0, rowIndex = 0)
+      add(token, columnIndex = 1, rowIndex = 0, colspan = 2, rowspan = 1)
+
+      add(new Label("Notion page:"), 0, 1)
+      add(notion, columnIndex = 1, rowIndex = 1, colspan = 2, rowspan = 1)
+
+      add(tagsList, columnIndex = 0, rowIndex = 2, colspan = 3, rowspan = 1)
+
+      add(fetchTags, columnIndex = 0, rowIndex = 3)
+      add(write, columnIndex = 1, rowIndex = 3)
+
+      add(logList, columnIndex = 0, rowIndex = 4, colspan = 3, rowspan = 1)
+    }
 
     stage = new JFXApp3.PrimaryStage {
       title = "RBR Favorites Sync"
@@ -118,28 +154,8 @@ object ScalaFXHelloWorld extends JFXApp3 {
       minWidth = 400
       scene = new Scene {
         root = new HBox {
-          width_=(400)
           padding = Insets(10, 10, 10, 10)
-          children = Seq(
-            new GridPane() {
-              hgap = 10
-              vgap = 10
-              padding = Insets(20, 10, 10, 10)
-
-              add(new Label("Token:"), columnIndex = 0, rowIndex = 0)
-              add(token, columnIndex = 1, rowIndex = 0, colspan = 2, rowspan = 1)
-
-              add(new Label("Notion page:"), 0, 1)
-              add(notion, columnIndex = 1, rowIndex = 1, colspan = 2, rowspan = 1)
-
-              add(tagsList, columnIndex = 0, rowIndex = 2, colspan = 3, rowspan = 1)
-
-              add(fetchTags, columnIndex = 0, rowIndex = 3)
-              add(write, columnIndex = 1, rowIndex = 3)
-
-              add(logList, columnIndex = 0, rowIndex = 4, colspan = 3, rowspan = 1)
-            }
-          )
+          children = Seq(grid)
         }
       }
     }

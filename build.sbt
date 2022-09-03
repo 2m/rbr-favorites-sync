@@ -21,6 +21,8 @@ lazy val ui = project
     libraryDependencies ++= Seq(
       "org.scalafx" %% "scalafx" % "18.0.2-R29"
     ),
-    // to avoid javafx double init problems
-    fork := true
+    nativeImageVersion := "22.2.0",
+    nativeImageJvm := "graalvm-java17",
+    fork := true // to avoid javafx double init problems
   )
+  .enablePlugins(NativeImagePlugin)

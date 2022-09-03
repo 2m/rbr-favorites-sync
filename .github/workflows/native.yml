@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macOS-latest, ubuntu-latest, windows-2019]
+        os: [macOS-latest, ubuntu-latest, windows-latest]
         include:
         - os: macOS-latest
           uploaded_filename: rbr-favorites-sync-x86_64-apple-darwin
@@ -22,7 +22,7 @@ jobs:
         - os: ubuntu-latest
           uploaded_filename: rbr-favorites-sync-x86_64-pc-linux
           local_path: ui/target/native-image/ui
-        - os: windows-2019
+        - os: windows-latest
           uploaded_filename: rbr-favorites-sync-x86_64-pc-win32.exe
           local_path: ui/target/native-image/ui.exe
     steps:
@@ -34,13 +34,13 @@ jobs:
         java-version: 17
     - run: git fetch --tags || true
     - shell: bash
-      if: ${{ matrix.os != 'windows-2019' }}
+      if: ${{ matrix.os != 'windows-latest' }}
       run: sbt ui/nativeImage
     - shell: cmd
-      if: ${{ matrix.os == 'windows-2019' }}
+      if: ${{ matrix.os == 'windows-latest' }}
       run: >-
-        "C:\Program Files (x86)\Microsoft Visual
-        Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat" && sbt
+        "C:\Program Files\Microsoft Visual
+        Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" && sbt
         ui/nativeImage
     - uses: actions/upload-artifact@v2
       with:

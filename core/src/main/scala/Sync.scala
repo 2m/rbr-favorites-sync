@@ -16,21 +16,20 @@
 
 package lt.dvim.rbr
 
-import io.circe.generic.auto._
 import cats.data.EitherT
+import cats.implicits._
+import cats.instances.future._
 import cats.instances.list._
 import cats.syntax.traverse._
-import cats.instances.future._
-import cats.implicits._
-
+import io.circe.Decoder
+import io.circe.generic.auto._
+import scala.concurrent.Await
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
+import scala.concurrent.duration._
 import sttp.client3._
 import sttp.client3.circe._
 import sttp.client3.logging.scribe.ScribeLoggingBackend
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
-import scala.concurrent.Await
-import scala.concurrent.duration._
-import io.circe.Decoder
 
 type Http = SttpBackend[Future, Any]
 case class Config(token: String)

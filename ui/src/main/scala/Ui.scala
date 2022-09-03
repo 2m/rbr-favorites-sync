@@ -16,26 +16,26 @@
 
 package lt.dvim.rbr
 
+import javafx.collections.FXCollections
+import scala.concurrent.ExecutionContext
 import scalafx.application.JFXApp3
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
+import scalafx.scene.control.Button
+import scalafx.scene.control.Label
+import scalafx.scene.control.ListView
+import scalafx.scene.control.MultipleSelectionModel
+import scalafx.scene.control.SelectionMode
+import scalafx.scene.control.SelectionModel
+import scalafx.scene.control.TextField
+import scalafx.scene.control.TextInputDialog
 import scalafx.scene.effect.DropShadow
+import scalafx.scene.layout.GridPane
 import scalafx.scene.layout.HBox
 import scalafx.scene.paint.Color._
 import scalafx.scene.paint._
 import scalafx.scene.text.Text
-import scalafx.scene.control.TextInputDialog
-import scalafx.scene.control.TextField
-import scalafx.scene.control.Button
-import scalafx.scene.layout.GridPane
-import scalafx.scene.control.Label
-import scalafx.scene.control.MultipleSelectionModel
 import scalafx.stage.StageStyle
-import scalafx.scene.control.ListView
-import javafx.collections.FXCollections
-import scala.concurrent.ExecutionContext
-import scalafx.scene.control.SelectionModel
-import scalafx.scene.control.SelectionMode
 
 object ScalaFXHelloWorld extends JFXApp3 {
 

@@ -16,7 +16,9 @@
 
 package lt.dvim.rbr
 
+import java.io.File
 import javafx.collections.FXCollections
+import org.ini4j.Wini
 import scala.concurrent.ExecutionContext
 import scalafx.application.JFXApp3
 import scalafx.geometry.Insets
@@ -32,8 +34,8 @@ import scalafx.scene.control.TextInputDialog
 import scalafx.scene.effect.DropShadow
 import scalafx.scene.layout.GridPane
 import scalafx.scene.layout.HBox
-import scalafx.scene.paint.Color._
 import scalafx.scene.paint._
+import scalafx.scene.paint.Color._
 import scalafx.scene.text.Text
 import scalafx.stage.StageStyle
 
@@ -56,21 +58,36 @@ object ScalaFXHelloWorld extends JFXApp3 {
   override def start(): Unit = {
     given ExecutionContext = ExecutionContext.global
 
+    val storageFile = {
+      val file = new File("rbr-favorites-sync.ini")
+      file.createNewFile()
+      file
+    }
+    val localStorage = new Wini(storageFile)
+
     val token = new TextField { promptText = "token" }
     token.text.onChange { (_, _, newValue) =>
       newValue match {
-        case s"secret_$rest" if rest.length > 0 => token.style = Style.Valid
-        case _                                  => token.style = Style.Invalid
+        case s"secret_$rest" if rest.length > 0 =>
+          token.style = Style.Valid
+          localStorage.put("config", "token", newValue)
+          localStorage.store()
+        case _ => token.style = Style.Invalid
       }
     }
+    token.text = Option(localStorage.get("config", "token")).getOrElse("")
 
     val notion = new TextField { promptText = "uuid" }
     notion.text.onChange { (_, _, newValue) =>
       newValue match {
-        case uuid if uuid.length == 32 => notion.style = Style.Valid
-        case _                         => notion.style = Style.Invalid
+        case uuid if uuid.length == 32 =>
+          notion.style = Style.Valid
+          localStorage.put("config", "notion", newValue)
+          localStorage.store()
+        case _ => notion.style = Style.Invalid
       }
     }
+    notion.text = Option(localStorage.get("config", "notion")).getOrElse("")
 
     val tagItems = FXCollections.observableArrayList[String]()
     val tagsList = new ListView[String] {}

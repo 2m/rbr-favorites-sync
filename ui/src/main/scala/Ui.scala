@@ -17,6 +17,7 @@
 package lt.dvim.rbr
 
 import java.io.File
+import org.ini4j.Reg
 import org.ini4j.Wini
 import scala.concurrent.ExecutionContext
 import scalafx.application.JFXApp3
@@ -69,6 +70,20 @@ object ScalaFXHelloWorld extends JFXApp3 {
     }
     val localStorage = new Wini(storageFile)
 
+    val favoritesFile = {
+      val reg = Option(new Reg().get("HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Rallysimfans RBR"))
+      val path = reg
+        .map { r =>
+          val installPath = r.get("InstallPath")
+          s"$installPath\\rsfdata\\cache\\favorites.ini"
+        }
+        .getOrElse("favorites.ini")
+      val file = new File(path)
+      file.createNewFile()
+      file
+    }
+    val favoritesStorage = new Wini(favoritesFile)
+
     val token = new TextField { promptText = "token" }
     token.text.onChange { (_, _, newValue) =>
       newValue match {
@@ -103,6 +118,15 @@ object ScalaFXHelloWorld extends JFXApp3 {
     val logList = new ListView[String] {
       items = logItems
       prefHeight = 150
+    }
+
+    logItems.prepend {
+      val favorites = favoritesFile.getAbsolutePath
+      s"Parsing favorites from $favorites"
+    }
+    logItems.prepend {
+      val stageCount = favoritesStorage.get("FavoriteStages").size
+      s"Found $stageCount favorite stages"
     }
 
     val fetchTags = new Button("Fetch tags") {

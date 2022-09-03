@@ -46,7 +46,7 @@ import scalafx.scene.paint.Color._
 import scalafx.scene.text.Text
 import scalafx.stage.StageStyle
 
-object ScalaFXHelloWorld extends JFXApp3 {
+object RbrFavoritesSyncScalaFx extends JFXApp3 {
 
   object Style {
     val Valid = """

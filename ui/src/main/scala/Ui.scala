@@ -20,6 +20,7 @@ import java.io.File
 import org.ini4j.Reg
 import org.ini4j.Wini
 import scala.concurrent.ExecutionContext
+import scala.jdk.CollectionConverters.ListHasAsScala
 import scalafx.application.JFXApp3
 import scalafx.application.Platform
 import scalafx.collections.ObservableBuffer
@@ -157,7 +158,20 @@ object ScalaFXHelloWorld extends JFXApp3 {
         }
       }
     }
-    val write = new Button("Write")
+    val write = new Button("Write") {
+      onAction = _ => {
+        val selectedTags = tagsList.getSelectionModel.getSelectedItems.asScala.toList
+        val selectedStages = loadedStages.filter(_.tags.intersect(selectedTags).nonEmpty)
+
+        Option(favoritesStorage.get("FavoriteStages")).map(_.clear())
+        selectedStages.foreach { stage =>
+          favoritesStorage.put("FavoriteStages", stage.id.toString, "f");
+        }
+        favoritesStorage.store()
+
+        logItems.prepend(s"Marked ${selectedStages.size} stages as favorites")
+      }
+    }
 
     val neverGrow = new ColumnConstraints()
     neverGrow.setHgrow(Priority.Never)

@@ -24,7 +24,7 @@ jobs:
           local_path: ui/target/native-image/ui
         - os: windows-2019
           uploaded_filename: rbr-favorites-sync-x86_64-pc-win32.exe
-          local_path: ui/target/native-image/ui
+          local_path: ui/target/native-image/ui.exe
     steps:
     - uses: actions/checkout@v3
     - name: Setup JDK

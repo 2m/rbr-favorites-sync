@@ -28,6 +28,7 @@ lazy val ui = project
     ),
     nativeImageVersion := "22.2.0",
     nativeImageJvm := "graalvm-java17",
+    nativeImageOptions += "--no-fallback",
     fork := true // to avoid javafx double init problems
   )
   .enablePlugins(AutomateHeaderPlugin, NativeImagePlugin)

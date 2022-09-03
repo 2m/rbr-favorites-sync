@@ -26,8 +26,8 @@ lazy val ui = project
       "org.scalafx" %% "scalafx" % "18.0.2-R29",
       "org.ini4j"    % "ini4j"   % "0.5.4"
     ),
-    nativeImageVersion := "22.2.0",
-    nativeImageJvm := "graalvm-java17",
+    nativeImageVersion := "20.3.6",
+    nativeImageJvm := "graalvm-java11",
     nativeImageOptions += "--no-fallback",
     fork := true // to avoid javafx double init problems
   )

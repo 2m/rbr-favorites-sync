@@ -1,5 +1,8 @@
 [
 {
+  "name":"[Lcom.sun.glass.ui.Screen;"
+},
+{
   "name":"com.sun.glass.ui.Application",
   "methods":[
     {"name":"notifyThemeChanged","parameterTypes":["java.lang.String"] }, 
@@ -28,9 +31,6 @@
 {
   "name":"com.sun.glass.ui.Screen",
   "methods":[{"name":"<init>","parameterTypes":["long","int","int","int","int","int","int","int","int","int","int","int","int","int","int","int","float","float","float","float"] }]
-},
-{
-  "name":"com.sun.glass.ui.Screen[]"
 },
 {
   "name":"com.sun.glass.ui.Size",
@@ -157,21 +157,15 @@
   ]
 },
 {
+  "name":"java.lang.Boolean",
+  "methods":[{"name":"getBoolean","parameterTypes":["java.lang.String"] }]
+},
+{
   "name":"java.lang.Class",
   "methods":[{"name":"forName","parameterTypes":["java.lang.String","boolean","java.lang.ClassLoader"] }]
 },
 {
-  "name":"java.lang.ClassLoader",
-  "methods":[{"name":"getPlatformClassLoader","parameterTypes":[] }]
-},
-{
-  "name":"java.lang.NoSuchMethodError"
-},
-{
   "name":"java.lang.Runnable",
   "methods":[{"name":"run","parameterTypes":[] }]
-},
-{
-  "name":"java.lang.String"
 }
 ]

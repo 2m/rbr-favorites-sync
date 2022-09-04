@@ -1,17 +1,58 @@
 [
 {
-  "name":"byte[]"
+  "name":"[B"
+},
+{
+  "name":"[Lio.circe.Decoder;"
+},
+{
+  "name":"[Ljava.lang.Object;"
+},
+{
+  "name":"[Ljava.lang.String;"
+},
+{
+  "name":"[Ljavafx.scene.Node;"
+},
+{
+  "name":"[Lscala.Option;"
+},
+{
+  "name":"[Lsttp.model.UriInterpolator$Token;"
+},
+{
+  "name":"[Lsun.security.pkcs.SignerInfo;"
 },
 {
   "name":"cats.Later",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"com.sun.crypto.provider.AESCipher$General",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"com.sun.crypto.provider.ARCFOURCipher",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.crypto.provider.ChaCha20Cipher$ChaCha20Poly1305",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.crypto.provider.DESCipher",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.crypto.provider.DESedeCipher",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
   "name":"com.sun.crypto.provider.DHParameters",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.crypto.provider.GaloisCounterMode$AESGCM",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
@@ -116,10 +157,7 @@
 },
 {
   "name":"io.circe.Decoder$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
-},
-{
-  "name":"io.circe.Decoder[]"
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"java.lang.Character",
@@ -129,16 +167,11 @@
   "name":"java.lang.ClassValue"
 },
 {
-  "name":"java.lang.Object[]"
-},
-{
   "name":"java.lang.String"
 },
 {
-  "name":"java.lang.String[]"
-},
-{
-  "name":"java.lang.invoke.VarHandle"
+  "name":"java.lang.invoke.VarHandle",
+  "methods":[{"name":"releaseFence","parameterTypes":[] }]
 },
 {
   "name":"java.nio.ByteBuffer",
@@ -153,9 +186,6 @@
 },
 {
   "name":"java.security.KeyStoreSpi"
-},
-{
-  "name":"java.security.MessageDigestSpi"
 },
 {
   "name":"java.security.SecureRandomParameters"
@@ -183,9 +213,6 @@
 },
 {
   "name":"javafx.scene.Node"
-},
-{
-  "name":"javafx.scene.Node[]"
 },
 {
   "name":"javafx.scene.ParallelCamera"
@@ -257,43 +284,43 @@
 },
 {
   "name":"lt.dvim.rbr.Notion$$anon$1",
-  "fields":[{"name":"0bitmap$3", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$3"}]
 },
 {
   "name":"lt.dvim.rbr.Notion$$anon$2",
-  "fields":[{"name":"0bitmap$2", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$2"}]
 },
 {
   "name":"lt.dvim.rbr.Notion$$anon$3",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"lt.dvim.rbr.RbrFavoritesSyncScalaFx$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"lt.dvim.rbr.Sync$package$$anon$4",
-  "fields":[{"name":"0bitmap$4", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$4"}]
 },
 {
   "name":"lt.dvim.rbr.Sync$package$$anon$5",
-  "fields":[{"name":"0bitmap$7", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$7"}]
 },
 {
   "name":"lt.dvim.rbr.Sync$package$$anon$6",
-  "fields":[{"name":"0bitmap$6", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$6"}]
 },
 {
   "name":"lt.dvim.rbr.Sync$package$$anon$7",
-  "fields":[{"name":"0bitmap$5", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$5"}]
 },
 {
   "name":"lt.dvim.rbr.Sync$package$$anon$8",
-  "fields":[{"name":"0bitmap$9", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$9"}]
 },
 {
   "name":"lt.dvim.rbr.Sync$package$$anon$9",
-  "fields":[{"name":"0bitmap$8", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$8"}]
 },
 {
   "name":"org.ini4j.spi.IniBuilder",
@@ -308,97 +335,88 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"scala.Option[]"
-},
-{
   "name":"scalafx.application.AppHelper3",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"scalafx.scene.Node",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scalafx.scene.control.SelectionMode$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scalafx.scene.layout.Priority$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scalafx.stage.Window",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scribe.Logger",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scribe.Logger$",
-  "fields":[{"name":"0bitmap$2", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$2"}]
 },
 {
   "name":"scribe.Platform$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scribe.Priority$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scribe.data.MDC$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scribe.format.Formatter$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scribe.format.package$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scribe.message.LazyMessage",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scribe.modify.LevelFilter$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scribe.output.Color$Cyan$",
-  "fields":[{"name":"0bitmap$7", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$7"}]
 },
 {
   "name":"scribe.output.Color$Green$",
-  "fields":[{"name":"0bitmap$8", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$8"}]
 },
 {
   "name":"scribe.package$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"scribe.record.SimpleLogRecord",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"sttp.client3.HttpClientFutureBackend$$anon$2",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"sttp.model.Header$",
-  "fields":[{"name":"0bitmap$1", "allowUnsafeAccess":true}]
-},
-{
-  "name":"sttp.model.UriInterpolator$Token[]"
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"sun.misc.Unsafe",
   "allDeclaredFields":true
-},
-{
-  "name":"sun.security.pkcs.SignerInfo[]"
 },
 {
   "name":"sun.security.pkcs12.PKCS12KeyStore",

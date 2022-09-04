@@ -28,7 +28,12 @@ lazy val ui = project
     ),
     nativeImageVersion := "20.3.6",
     nativeImageJvm := "graalvm-java11",
-    nativeImageOptions ++= Seq("--verbose", "--no-fallback", "-H:+AllowIncompleteClasspath"),
+    nativeImageOptions ++= Seq(
+      "--verbose",
+      "--no-fallback",
+      "-H:+AllowIncompleteClasspath",
+      "-H:IncludeResourceBundles"
+    ),
     nativeImageAgentOutputDir := (Compile / resourceDirectory).value / "META-INF" / "native-image" / organization.value / name.value,
     fork := true // to avoid javafx double init problems
   )

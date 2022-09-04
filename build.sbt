@@ -29,11 +29,8 @@ lazy val ui = project
     nativeImageVersion := "22.2.0",
     nativeImageJvm := "graalvm-java17",
     nativeImageOptions ++= Seq(
-      "--verbose",
-      "--no-fallback",
-      "-H:+AllowIncompleteClasspath"
+      "--verbose"
     ),
-    nativeImageAgentOutputDir := (Compile / resourceDirectory).value / "META-INF" / "native-image" / organization.value / name.value,
     fork := true // to avoid javafx double init problems
   )
   .enablePlugins(AutomateHeaderPlugin, NativeImagePlugin)

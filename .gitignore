@@ -2,3 +2,7 @@
 */favorites.ini
 */favorites.ini.bak
 .vscode
+.bsp
+.metals
+**/target
+**/metals.sbt

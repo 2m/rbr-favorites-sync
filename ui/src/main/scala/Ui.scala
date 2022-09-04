@@ -21,6 +21,8 @@ import org.ini4j.Reg
 import org.ini4j.Wini
 import scala.concurrent.ExecutionContext
 import scala.jdk.CollectionConverters.ListHasAsScala
+import scala.sys.process._
+import scala.util.Try
 import scalafx.application.JFXApp3
 import scalafx.application.Platform
 import scalafx.collections.ObservableBuffer
@@ -73,14 +75,16 @@ object RbrFavoritesSyncScalaFx extends JFXApp3 {
     val localStorage = new Wini(storageFile)
 
     val favoritesFile = {
-      val reg = Option(new Reg().get("HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Rallysimfans RBR"))
-      val path = reg
-        .map { r =>
-          val installPath = r.get("InstallPath")
-          s"$installPath\\rsfdata\\cache\\favorites.ini"
+      val path = Try(
+        Process("""reg query "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Rallysimfans RBR" /v InstallPath""").!!
+      ).toEither.fold(
+        _ => "",
+        output => {
+          val installPath = output.split("REG_SZ").toList.last.trim
+          s"$installPath\\rsfdata\\cache\\"
         }
-        .getOrElse("favorites.ini")
-      val file = new File(path)
+      )
+      val file = new File(s"${path}favorites.ini")
       file.createNewFile()
       file
     }

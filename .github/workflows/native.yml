@@ -35,7 +35,7 @@ jobs:
         distribution: temurin
         java-version: 17
     - uses: ilammy/msvc-dev-cmd@v1
-    - run: sbt clean ui/nativeImage
+    - run: sbt clean ui/JdkPackager/packageBin
     - uses: actions/upload-artifact@v2
       with:
         path: ${{ matrix.local_path }}

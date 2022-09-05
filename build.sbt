@@ -26,10 +26,7 @@ lazy val ui = project
       "org.scalafx" %% "scalafx" % "18.0.2-R29",
       "org.ini4j"    % "ini4j"   % "0.5.4"
     ),
-    nativeImageVersion := "20.3.6",
-    nativeImageJvm := "graalvm-java11",
-    nativeImageOptions += "--no-fallback",
-    nativeImageAgentOutputDir := (Compile / resourceDirectory).value / "META-INF" / "native-image" / organization.value / name.value,
+    jdkPackagerType := "exe",
     fork := true // to avoid javafx double init problems
   )
-  .enablePlugins(AutomateHeaderPlugin, NativeImagePlugin)
+  .enablePlugins(AutomateHeaderPlugin, JDKPackagerPlugin)

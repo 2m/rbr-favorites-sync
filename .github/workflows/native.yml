@@ -33,7 +33,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         distribution: temurin
-        java-version: 17
+        java-version: 8
     - uses: ilammy/msvc-dev-cmd@v1
     - run: sbt clean ui/JdkPackager/packageBin
     - uses: actions/upload-artifact@v2

@@ -17,14 +17,14 @@ jobs:
         os: [macOS-latest, ubuntu-latest, windows-latest]
         include:
         - os: macOS-latest
-          uploaded_filename: rbr-favorites-sync-x86_64-apple-darwin
-          local_path: ui/target/native-image/ui
+          uploaded_filename: rbr-favorites-sync-x86_64-apple-darwin.zip
+          local_path: ui/target/universal/rbr-favorites-sync.zip
         - os: ubuntu-latest
-          uploaded_filename: rbr-favorites-sync-x86_64-pc-linux
-          local_path: ui/target/native-image/ui
+          uploaded_filename: rbr-favorites-sync-x86_64-pc-linux.zip
+          local_path: ui/target/universal/rbr-favorites-sync.zip
         - os: windows-latest
-          uploaded_filename: rbr-favorites-sync-x86_64-pc-win32.exe
-          local_path: ui/target/native-image/ui.exe
+          uploaded_filename: rbr-favorites-sync-x86_64-pc-win32.zip
+          local_path: ui/target/universal/rbr-favorites-sync.zip
     steps:
     - uses: actions/checkout@v3
       with:
@@ -33,9 +33,10 @@ jobs:
       uses: actions/setup-java@v3
       with:
         distribution: temurin
-        java-version: 8
+        java-version: 17
     - uses: ilammy/msvc-dev-cmd@v1
-    - run: sbt clean ui/JdkPackager/packageBin
+    - run: sbt clean ui/Universal/packageBin
+    - run: mv ui/target/universal/rbr-favorites-sync-*.zip ui/target/universal/rbr-favorites-sync.zip
     - uses: actions/upload-artifact@v2
       with:
         path: ${{ matrix.local_path }}

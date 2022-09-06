@@ -22,11 +22,11 @@ lazy val core = project
 lazy val ui = project
   .dependsOn(core)
   .settings(
+    name := "rbr-favorites-sync",
     libraryDependencies ++= Seq(
       "org.scalafx" %% "scalafx" % "18.0.2-R29",
       "org.ini4j"    % "ini4j"   % "0.5.4"
     ),
-    jdkPackagerType := "exe",
     fork := true // to avoid javafx double init problems
   )
-  .enablePlugins(AutomateHeaderPlugin, JDKPackagerPlugin)
+  .enablePlugins(AutomateHeaderPlugin, JavaAppPackaging)

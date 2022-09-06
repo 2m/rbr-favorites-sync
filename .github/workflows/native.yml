@@ -10,21 +10,9 @@ on:
 
 jobs:
   native-image:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        os: [macOS-latest, ubuntu-latest, windows-latest]
-        include:
-        - os: macOS-latest
-          uploaded_filename: rbr-favorites-sync-x86_64-apple-darwin.zip
-          local_path: ui/target/universal/rbr-favorites-sync.zip
-        - os: ubuntu-latest
-          uploaded_filename: rbr-favorites-sync-x86_64-pc-linux.zip
-          local_path: ui/target/universal/rbr-favorites-sync.zip
-        - os: windows-latest
-          uploaded_filename: rbr-favorites-sync-x86_64-pc-win32.zip
-          local_path: ui/target/universal/rbr-favorites-sync.zip
     steps:
     - uses: actions/checkout@v3
       with:
@@ -39,8 +27,8 @@ jobs:
     - run: mv ui/target/universal/rbr-favorites-sync-*.zip ui/target/universal/rbr-favorites-sync.zip
     - uses: actions/upload-artifact@v2
       with:
-        path: ${{ matrix.local_path }}
-        name: ${{ matrix.uploaded_filename }}
+        path: ui/target/universal/rbr-favorites-sync.zip
+        name: rbr-favorites-sync.zip
     - name: Upload release
       if: github.event_name == 'release'
       uses: actions/upload-release-asset@v1.0.2
@@ -48,6 +36,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ matrix.local_path }}
-        asset_name: ${{ matrix.uploaded_filename }}
+        asset_path: ui/target/universal/rbr-favorites-sync.zip
+        asset_name: rbr-favorites-sync.zip
         asset_content_type: application/zip

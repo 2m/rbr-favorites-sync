@@ -3,7 +3,8 @@ inThisBuild(
     scalaVersion := "3.1.2",
     organizationName := "github.com/2m/rbr-favorites-sync",
     startYear := Some(2022),
-    licenses += ("Apache-2.0", new URL("https://www.apache.org/licenses/LICENSE-2.0.txt"))
+    licenses += ("Apache-2.0", new URL("https://www.apache.org/licenses/LICENSE-2.0.txt")),
+    dynverVTagPrefix := false
   )
 )
 

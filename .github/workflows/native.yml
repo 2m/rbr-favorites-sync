@@ -10,9 +10,21 @@ on:
 
 jobs:
   native-image:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
+      matrix:
+        os: [macOS-latest, ubuntu-latest, windows-latest]
+        include:
+        - os: macOS-latest
+          uploaded_filename: rbr-favorites-sync-macos.zip
+          local_path: ui/target/universal/stage
+        - os: ubuntu-latest
+          uploaded_filename: rbr-favorites-sync-linux.zip
+          local_path: ui/target/universal/stage
+        - os: windows-latest
+          uploaded_filename: rbr-favorites-sync-windows.zip
+          local_path: ui/target/universal/stage
     steps:
     - uses: actions/checkout@v3
       with:
@@ -23,12 +35,12 @@ jobs:
         distribution: temurin
         java-version: 17
     - uses: ilammy/msvc-dev-cmd@v1
-    - run: sbt clean ui/Universal/packageBin
-    - run: mv ui/target/universal/rbr-favorites-sync-*.zip ui/target/universal/rbr-favorites-sync.zip
+    - run: sbt clean ui/Universal/stage
+    - run: zip rbr-favorites-sync.zip ${{ matrix.local_path }}/*
     - uses: actions/upload-artifact@v2
       with:
-        path: ui/target/universal/rbr-favorites-sync.zip
-        name: rbr-favorites-sync.zip
+        path: ${{ matrix.local_path }}
+        name: ${{ matrix.uploaded_filename }}
     - name: Upload release
       if: github.event_name == 'release'
       uses: actions/upload-release-asset@v1.0.2
@@ -36,6 +48,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ui/target/universal/rbr-favorites-sync.zip
-        asset_name: rbr-favorites-sync.zip
+        asset_path: rbr-favorites-sync.zip
+        asset_name: ${{ matrix.uploaded_filename }}
         asset_content_type: application/zip

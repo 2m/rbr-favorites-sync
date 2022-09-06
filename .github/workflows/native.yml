@@ -35,7 +35,7 @@ jobs:
         distribution: temurin
         java-version: 17
     - run: sbt clean ui/Universal/stage ui/Universal/packageBin
-    - run: mv ui/target/universal/rbr-favorites-sync-.zip rbr-favorites-sync.zip
+    - run: mv ui/target/universal/rbr-favorites-sync-*.zip rbr-favorites-sync.zip
     - uses: actions/upload-artifact@v2
       with:
         path: ${{ matrix.local_path }}

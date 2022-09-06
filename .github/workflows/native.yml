@@ -17,14 +17,14 @@ jobs:
         os: [macOS-latest, ubuntu-latest, windows-latest]
         include:
         - os: macOS-latest
-          uploaded_filename: rbr-favorites-sync-x86_64-apple-darwin
-          local_path: ui/target/native-image/ui
+          uploaded_filename: rbr-favorites-sync-macos
+          local_path: ui/target/universal/stage
         - os: ubuntu-latest
-          uploaded_filename: rbr-favorites-sync-x86_64-pc-linux
-          local_path: ui/target/native-image/ui
+          uploaded_filename: rbr-favorites-sync-linux
+          local_path: ui/target/universal/stage
         - os: windows-latest
-          uploaded_filename: rbr-favorites-sync-x86_64-pc-win32.exe
-          local_path: ui/target/native-image/ui.exe
+          uploaded_filename: rbr-favorites-sync-windows
+          local_path: ui/target/universal/stage
     steps:
     - uses: actions/checkout@v3
       with:
@@ -34,8 +34,8 @@ jobs:
       with:
         distribution: temurin
         java-version: 17
-    - uses: ilammy/msvc-dev-cmd@v1
-    - run: sbt clean ui/nativeImage
+    - run: sbt clean ui/Universal/stage ui/Universal/packageBin
+    - run: mv ui/target/universal/rbr-favorites-sync-*.zip rbr-favorites-sync.zip
     - uses: actions/upload-artifact@v2
       with:
         path: ${{ matrix.local_path }}
@@ -47,6 +47,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ matrix.local_path }}
-        asset_name: ${{ matrix.uploaded_filename }}
+        asset_path: rbr-favorites-sync.zip
+        asset_name: ${{ matrix.uploaded_filename }}.zip
         asset_content_type: application/zip

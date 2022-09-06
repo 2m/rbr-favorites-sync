@@ -22,14 +22,11 @@ lazy val core = project
 lazy val ui = project
   .dependsOn(core)
   .settings(
+    name := "rbr-favorites-sync",
     libraryDependencies ++= Seq(
       "org.scalafx" %% "scalafx" % "18.0.2-R29",
       "org.ini4j"    % "ini4j"   % "0.5.4"
     ),
-    nativeImageVersion := "20.3.6",
-    nativeImageJvm := "graalvm-java11",
-    nativeImageOptions += "--no-fallback",
-    nativeImageAgentOutputDir := (Compile / resourceDirectory).value / "META-INF" / "native-image" / organization.value / name.value,
     fork := true // to avoid javafx double init problems
   )
-  .enablePlugins(AutomateHeaderPlugin, NativeImagePlugin)
+  .enablePlugins(AutomateHeaderPlugin, JavaAppPackaging)
